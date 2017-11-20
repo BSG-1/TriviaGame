@@ -1,0 +1,19 @@
+var triviaGame = {
+	gameQuestions: [];
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
