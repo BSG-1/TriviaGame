@@ -10,6 +10,39 @@
 	<link rel="stylesheet" href="assets/css/style.css" type="text/css">
 </head>
 <body>
+	<!--Container-->
+	<div class="container">
+
+		<!--Divs for Game Title-->
+		<div class="jumbotron">
+			<h2 class="text-center">Star Wars Trivia Game!</h2>
+		</div>
+
+		<!--Panel for Questions/Answers-->
+		<div class="panel" id="questionsAnswers">
+			<!--Questions passed into title-->
+			<div class="panel-title">
+				<div class="text-center">
+					<div id="questions" class="text-center"></div>
+				</div>
+			</div>
+			
+			<!--Answers passed into body-->
+			<div class="panel-body">
+				<div class="row">
+					<div class="answers" class="text-center"></div>
+				</div>	
+			</div>
+			
+			<!--Start Button-->
+			<button type="button" id="startButton" class="btn btn-success" class="text-center">Start</button>
+
+			<!--Submit Button-->
+			<button type="button" id="submitButton" class="btn btn-success" class="text-center">Submit</button>
+
+		</div>
+	</div>
+
 	<!--Link to jQuery Lib-->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="assets/javascript/app.js"></script>
