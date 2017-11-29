@@ -1,7 +1,33 @@
-$(document).ready(function(){
-
+//Global Variables
 var gameQuestions = ["Who was Luke's Father?", "Han Solo & Leia Skywalker/Organa/Solo had a son. What was his name?", 
 					"General Akbar exclaimed which of these?", "Which Sith Lord created the Rule of Two?"];
+var t = 30;
+
+//jquery ready
+$(document).ready(function(){
+
+	//click start button
+	$("#startButton").click(function(){
+		$("#startButton").hide();
+
+		//timer function
+		function timer(){
+			t--
+			console.log(t);
+			var $time = $("<h2>Time Remaining: " + t + " seconds</h2>")
+				$("#questions").html($time);
+		};
+
+		setInterval(timer, 1000);
+		timer();
+
+	})
+
+})
+
+
+
+
 //question objects
 /* var q1 = {
 	question: "Who was Luke's Father?",
@@ -43,58 +69,3 @@ var q4 = {
 	correctAnswer4: 'a: Darth Bane',
 };
 */
-
-//showQuestion will hold the setInterval when we start the game
-var newQuestion;
-
-//questionCount keeps track of the index of the currently displaying question
-var questionCount = 0; 
-
-//run startGame function when we click start button
-$("#start").click(startGame);
-
-//function to display every question
-function newQuestion(){
-	for (var i = 0; i < gameQuestions.length; i++) {
-		$("#questions").append(gameQuestions.questions[i]);
-	}
-	
-};
-
-//function to display every answer
-
-
-//function to go to the next question
-function newQuestion(){
-	questionCount++;
-	
-	//show the next question
-	$("#answers").html(gameQuestions(answers[questionCount]));
-
-	//setTimeOut to run displayQuestion after 3 seconds
-	setTimeOut(displayQuestion, 3000);
-
-	//if questionCount is the same as the length of the gameQuestions array, reset the count to 0
-	if (questionCount === gameQuestions.length) {
-		questionCount = 0;
-	}
-}
-
-//function that holds the setInterval to run nextQuestion
-function startGame() {
-	showQuestion = setInterval(nextQuestion, )
-}
-
-//run displayQuestion function
-newQuestion();
-
-});
-
-
-
-//This one will make sure that every 20 seconds, your questions get "moved on" to the next question. 
-//You can do the same with an interval, like so:
-setInterval(function(){
-  questionCount++;
-  newQuestion();
-}, 20000);
