@@ -24,15 +24,23 @@
 		<div class="panel" id="questionsAnswers">
 			<!--Questions passed into title-->
 			<div class="panel-title">
-				<div class="text-center">
-					<div id="questions" class="text-center"></div>
-				</div>
+				<div class="row">
+					<div class="col-sm-6">
+						<div id="questions" class="text-center"></div>
+					</div>
+					<!--Timer-->
+					<div class="col-sm-6">
+						<div id="timer" class="text-center"></div>
+					</div>
+
 			</div>
+			<!--Questions passed into title-->
+			<div class="">
 			
 			<!--Answers passed into body-->
 			<div class="panel-body">
 				<div class="row">
-					<div class="answers" class="text-center"></div>
+					<div id="answers" class="text-center"></div>
 				</div>	
 			</div>
 			
@@ -46,3 +54,9 @@
 	<script src="assets/javascript/app.js"></script>
 </body>
 </html>
+
+
+<!-- setTimeOut(function(){
+	var $time = $("<h3>Time Remaining: " + t + "</h3>")
+		$("#timer").html($time);	
+	},30000); --> 

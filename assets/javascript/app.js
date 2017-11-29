@@ -1,29 +1,61 @@
 //Global Variables
-var gameQuestions = ["Who was Luke's Father?", "Han Solo & Leia Skywalker/Organa/Solo had a son. What was his name?", 
-					"General Akbar exclaimed which of these?", "Which Sith Lord created the Rule of Two?"];
-var t = 30;
+var questions = ["Who was Luke Skywalker's Father?", "Han Solo & Leia Skywalker had a son. What was his name?", 
+					"General Akbar famously exclaimed which of these?", "Which Sith Lord created the Rule of Two?"];
+var gameAnswers = [["A: Assaj Ventress","B: Darth Vader","C: Lando Calrissian","D: Obi-Wan Kenobi"], ["A: General Akbar","B: Count Duku","C: Darth Maul","D: Jacen"], ["A: Its a trap!","B: The war is lost, go home.","C: Anakin is pissed.","D: I am General Akbar."], ["A: Darth Bane","B: Star Killer","C: Darth Revan","D: Darth Malgus"]];
+var correctAnswers = ["B: Darth Vader", "D: Jacen", "A: Its a trap!", "A: Darth Bane"];
+var questionCounter = 0;
+var selectAnswer = 0;
+var correctTally = 0;
+var incorrectTally = 0;
+var unansweredTally = 0;
 
-//jquery ready
+//jQuery ready
 $(document).ready(function(){
 
-	//click start button
+	//Click start button to begin game
 	$("#startButton").click(function(){
 		$("#startButton").hide();
 
-		//timer function
-		function timer(){
-			t--
-			console.log(t);
-			var $time = $("<h2>Time Remaining: " + t + " seconds</h2>")
-				$("#questions").html($time);
+		//Asking the user a question from array
+		function askQuestion(){
+			for (var i = 0; i < questions.length; i++) {
+				$("#questions").html(questions[i]);
+			}
 		};
+		askQuestion();
+		console.log(askQuestion);
 
-		setInterval(timer, 1000);
-		timer();
+		//Show CLICKABLE options to user
 
-	})
 
-})
+		//timer function & run out of time
+		var time = 30;
+		var timer = setInterval(function(){
+			time--;
+			var $time = $("<h3>Time Remaining: " + time + "</h3>")
+			$("#timer").html($time);	
+
+			if (time === 0){
+				clearInterval(timer);
+				/*if answer is correct then congratulations, else 
+				sucks to suck*/
+				if (selectAnswer === "B: Darth Vader" ||gameAnswers === "D: Jacen"|| gameAnswers === "A: Its a trap!" || gameAnswers === "A: Darth Bane"){
+					$("#answers").html('Congratulations! That is the correct answer!');
+					correctTally++
+				} else {
+					$("#answers").html('Incorrect, young apprentice.');
+					incorrectTally++
+				};
+
+			//wait 2 seconds before going to next question
+
+
+			}
+		}, 1000);
+		console.log(time);
+
+	});
+});
 
 
 
