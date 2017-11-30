@@ -1,8 +1,8 @@
 //Global Variables
-var questions = ["Who was Luke Skywalker's Father?", "Han Solo & Leia Skywalker had a son. What was his name?", 
-					"General Akbar famously exclaimed which of these?", "Which Sith Lord created the Rule of Two?"];
+var questions = ["Who was Luke Skywalker's Father?", "Han Solo & Leia Skywalker had a son. What was his name?", "General Akbar famously exclaimed which of these?", "Which Sith Lord created the Rule of Two?"];
 var gameAnswers = [["A: Assaj Ventress","B: Darth Vader","C: Lando Calrissian","D: Obi-Wan Kenobi"], ["A: General Akbar","B: Count Duku","C: Darth Maul","D: Jacen"], ["A: Its a trap!","B: The war is lost, go home.","C: Anakin is pissed.","D: I am General Akbar."], ["A: Darth Bane","B: Star Killer","C: Darth Revan","D: Darth Malgus"]];
 var correctAnswers = ["B: Darth Vader", "D: Jacen", "A: Its a trap!", "A: Darth Bane"];
+var current = 0;
 var questionCounter = 0;
 var selectAnswer = 0;
 var correctTally = 0;
@@ -16,16 +16,35 @@ $(document).ready(function(){
 	$("#startButton").click(function(){
 		$("#startButton").hide();
 
-		//Asking the user a question from array
+		//Asking the initial question
 		function askQuestion(){
-			for (var i = 0; i < questions.length; i++) {
-				$("#questions").html(questions[i]);
+			if (questions[current]){
+				$("#questions").html(questions[questionCounter]);
+				var choicesArr = [questions][gameAnswers];
+				var buttonsArr = [];			
+				
+				for (var i = 0; i < choicesArr; i++) {
+					var button = $('<button>');
+					button.text(choicesArr);
+					button.attr('data-id', i);
+					button.attr('class', 'hvr-radial-out');
+					$("#answers").append(button);
+
+				};
+
 			}
+			
 		};
 		askQuestion();
 		console.log(askQuestion);
 
-		//Show CLICKABLE options to user
+		//next Question
+		function nextQuestion(){
+			questionCounter++;
+			var time = 30;
+		}
+
+		//Answer Choices
 
 
 		//timer function & run out of time
@@ -37,15 +56,26 @@ $(document).ready(function(){
 
 			if (time === 0){
 				clearInterval(timer);
-				/*if answer is correct then congratulations, else 
-				sucks to suck*/
+				/*if answer is correct then congratulations, 
+				add tally to correct count, run nextQuestion() */
 				if (selectAnswer === "B: Darth Vader" ||gameAnswers === "D: Jacen"|| gameAnswers === "A: Its a trap!" || gameAnswers === "A: Darth Bane"){
 					$("#answers").html('Congratulations! That is the correct answer!');
-					correctTally++
-				} else {
+					correctTally++;
+					setTimeOut(function(){
+						nextQuestion();
+					});
+				} 
+
+ 				/*if answer is correct then sorry, 
+				add tally to incorrect count, run nextQuestion()*/
+				else {
 					$("#answers").html('Incorrect, young apprentice.');
-					incorrectTally++
+					incorrectTally++;
+					setTimeOut(function(){
+						nextQuestion();
+					});
 				};
+
 
 			//wait 2 seconds before going to next question
 
@@ -53,14 +83,17 @@ $(document).ready(function(){
 			}
 		}, 1000);
 		console.log(time);
-
 	});
+
+
+
+
 });
 
 
 
 
-//question objects
+//Old Thoughts that didn't quite work out :)
 /* var q1 = {
 	question: "Who was Luke's Father?",
 	answers: [
