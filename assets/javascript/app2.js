@@ -25,11 +25,11 @@ $.fn.triviaGame = function(){
 	}, {
 		question: "Which Sith Lord created the Rule of Two?",
 		choices: ["A: Darth Bane", "B: Star Killer", "C: Darth Revan", "D: Darth Malgus"],
-		correct: 0			
+		correct: 0
 	}];
 
 	//Start the Game, Reset
-	trivia.ask = function(){
+	/*trivia.ask = function(){
 		if(trivia.questions[trivia.current]){
 			$("#timer").html("Time Remaining: " + trivia.count);
 			$("#questions").html(trivia.questions[trivia.current].question);
@@ -55,7 +55,7 @@ $.fn.triviaGame = function(){
 			}));
 			$("#startButton").text("Restart").appendTo('body').show();
 		}
-	};
+	};*/
 
 	//Game Timer runs as a function
 	trivia.timer = function(){
@@ -68,6 +68,7 @@ $.fn.triviaGame = function(){
 			$("#timer").html("Time Remaining: " + trivia.count);
 		}
 	};
+	console.log(trivia.timer);
 
 	//Send the Game to the next question
 	trivia.nextQuestion = function(){

@@ -1,6 +1,27 @@
 //Global Variables
-var questions = ["Who was Luke Skywalker's Father?", "Han Solo & Leia Skywalker had a son. What was his name?", "General Akbar famously exclaimed which of these?", "Which Sith Lord created the Rule of Two?"];
-var gameAnswers = [["A: Assaj Ventress","B: Darth Vader","C: Lando Calrissian","D: Obi-Wan Kenobi"], ["A: General Akbar","B: Count Duku","C: Darth Maul","D: Jacen"], ["A: Its a trap!","B: The war is lost, go home.","C: Anakin is pissed.","D: I am General Akbar."], ["A: Darth Bane","B: Star Killer","C: Darth Revan","D: Darth Malgus"]];
+var questions = ["Who was Luke Skywalker's Father?", 
+					"Han Solo & Leia Skywalker had a son. What was his name?", 
+					"General Akbar famously exclaimed which of these?", 
+					"Which Sith Lord created the Rule of Two?"
+				];
+
+var gameAnswers = [["A: Assaj Ventress ",
+					" B: Darth Vader",
+					" C: Lando Calrissian",
+					" D: Obi-Wan Kenobi"], 
+				   ["A: General Akbar",
+				   	" B: Count Duku",
+				   	" C: Darth Maul",
+				   	" D: Jacen"], 
+				   ["A: Its a trap!",
+				    " B: The war is lost, go home.",
+				    " C: Anakin is pissed.",
+				    " D: I am General Akbar."], 
+				   ["A: Darth Bane",
+				    " B: Star Killer",
+				    " C: Darth Revan",
+				    " D: Darth Malgus"]];
+
 var correctAnswers = ["B: Darth Vader", "D: Jacen", "A: Its a trap!", "A: Darth Bane"];
 var current = 0;
 var questionCounter = 0;
@@ -16,10 +37,12 @@ $(document).ready(function(){
 	$("#startButton").click(function(){
 		$("#startButton").hide();
 
-		//Asking the initial question
+		//Asking the first question
 		function askQuestion(){
+			var $question = $("<h4>" + questions[current] + "</h4>");
 			if (questions[current]){
-				$("#questions").html(questions[questionCounter]);
+				$("#questions").html($question);
+				$("#answers").html(gameAnswers[0]);
 				var choicesArr = [questions][gameAnswers];
 				var buttonsArr = [];			
 				
@@ -29,36 +52,23 @@ $(document).ready(function(){
 					button.attr('data-id', i);
 					button.attr('class', 'hvr-radial-out');
 					$("#answers").append(button);
-
 				};
-
 			}
-			
 		};
 		askQuestion();
 		console.log(askQuestion);
-
-		//next Question
-		function nextQuestion(){
-			questionCounter++;
-			var time = 30;
-		}
-
-		//Answer Choices
-
 
 		//timer function & run out of time
 		var time = 30;
 		var timer = setInterval(function(){
 			time--;
-			var $time = $("<h3>Time Remaining: " + time + "</h3>")
+			var $time = $("<h4>Time Remaining: " + time + "</h4>")
 			$("#timer").html($time);	
-
-			if (time === 0){
+			if (time <= 0){
 				clearInterval(timer);
 				/*if answer is correct then congratulations, 
 				add tally to correct count, run nextQuestion() */
-				if (selectAnswer === "B: Darth Vader" ||gameAnswers === "D: Jacen"|| gameAnswers === "A: Its a trap!" || gameAnswers === "A: Darth Bane"){
+				if (selectAnswer === "B: Darth Vader" || selectAnswer === "D: Jacen"|| selectAnswer === "A: Its a trap!" || selectAnswer === "A: Darth Bane"){
 					$("#answers").html('Congratulations! That is the correct answer!');
 					correctTally++;
 					setTimeOut(function(){
@@ -75,19 +85,11 @@ $(document).ready(function(){
 						nextQuestion();
 					});
 				};
-
-
-			//wait 2 seconds before going to next question
-
-
 			}
 		}, 1000);
 		console.log(time);
+	
 	});
-
-
-
-
 });
 
 
