@@ -2,51 +2,42 @@
 <html>
 <head>
 	<title>Trivia Game</title>
-
+	
+	<!--Link to Google font-->
+	<link href="https://fonts.googleapis.com/css?family=Spectral+SC" rel="stylesheet">
+	
 	<!--Link to Boostrap-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 	
 	<!--Link to css stylesheet-->
 	<link rel="stylesheet" href="assets/css/style.css" type="text/css">
+
 </head>
 <body>
+
 	<!--Container-->
 	<div class="container">
 
 		<!--Divs for Game Title-->
 		<div class="jumbotron">
 			<h2 class="text-center">Star Wars Trivia Game!</h2>
-			<!--Start Button-->
-			<button type="button" id="startButton" class="btn btn-success" class="text-center">Start</button>
+			<div class="row">
+				<!--Start Button-->
+				<button type="button" id="startButton" class="btn btn-danger text-center col-sm-offset-6">Start</button>
+			</div>
 		</div>
 
 		<!--Panel for Questions/Answers-->
-		<div class="panel" id="questionsAnswers">
-			<!--Questions passed into title-->
-			<div class="panel-title">
-				<div class="row">
-					<div class="col-sm-6">
-						<div id="questions" class="text-center"></div>
-					</div>
-					<!--Timer-->
-					<div class="col-sm-6">
-						<div id="timer" class="text-center"></div>
-					</div>
-
-			</div>
-
-			<br><br>
+		<div class="panel">
+			<!--Timer passed into panel-title-->
+			<div class="panel panel-title text-center" id="timer"></div>
 			
-			<!--Answers passed into body-->
-			<div class="panel-body">
-				<div class="row">
-					<div id="answers" class="text-center"></div>
-				</div>	
-			</div>
-			
-
-
+			<!--Questions & choices passed into panel-body-->
+			<div class="panel panel-body">
+				<div class="row text-center" id="questions"></div>
+			</div>		
 		</div>
+	
 	</div>
 
 	<!--Link to jQuery Lib-->
@@ -54,9 +45,3 @@
 	<script src="assets/javascript/app.js"></script>
 </body>
 </html>
-
-
-<!-- setTimeOut(function(){
-	var $time = $("<h3>Time Remaining: " + t + "</h3>")
-		$("#timer").html($time);	
-	},30000); --> 

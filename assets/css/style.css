@@ -1,0 +1,40 @@
+body {
+	background-image: 
+}
+
+.container {
+	background-color: red;
+}
+
+.jumbotron {
+	font-family: 'Spectral SC', serif;
+	font-size: 40px;
+}
+
+#timer {
+	border-style: solid;
+	border-color: black;
+	background-color: white;
+	font-family: 'Spectral SC', serif;
+	font-size: 20px;
+}
+
+
+#questions {
+	font-family: 'Spectral SC', serif;
+	font-size: 20px;
+}
+
+p {
+	font-family: 'Spectral SC', serif;
+	font-size: 20px;
+
+}
+
+h3 {
+	font-family: 'Spectral SC', serif;
+	font-size: 25px;
+}
+
+
+

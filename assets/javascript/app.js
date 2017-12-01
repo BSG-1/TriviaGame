@@ -1,34 +1,65 @@
 //Global Variables
-var questions = ["Who was Luke Skywalker's Father?", 
-					"Han Solo & Leia Skywalker had a son. What was his name?", 
-					"General Akbar famously exclaimed which of these?", 
-					"Which Sith Lord created the Rule of Two?"
-				];
+var questions = [{
+		question: "Who was Luke Skywalker's Father?",
+		choice: ["A: Assaj Ventress", "B: Darth Vader", "C: Lando Calrissian", "D: Obi-Wan Kenobi"],
+		images: ["<img src\"assets/images/vader.gif\">"],
+		correct: 1
+}, {
+		question: "Han & Leia had a son. What was his name? (Old Republic, not canon)",
+		choice: ["A: General Akbar", "B: Count Dooku", "C: Darth Maul", "D: Jacen"], 
+		images: ["<img src\"assets/images/jacen.gif\">"],
+		correct: 3
+}, {
+		question: "General Akbar famously exclaimed which of these?", 		
+		choice: ["A: Its a trap!", "B: The war is lost, go home.", "C: Anakin is pretty pissed.", "D: I am General Akbar."],
+		images: ["<img src\"assets/images/akbar.gif\">"],
+		correct: 0
+}, {
+		question: "Which Sith Lord created the Rule of Two?",
+		choice: ["A: Darth Bane", "B: Star Killer", "C: Darth Revan", "D: Darth Malgus"],
+		images: ["<img src\"assets/images/bane.gif\">"],
+		correct: 0
+}, {
+		question: "On what planet were both Luke and his father born?",
+		choice: ["A: Kamino", "B: Tattooine", "C: Onkar Plutt", "D: Sebulba"],
+		images: ["<img src\"assets/images/tattooine.gif\">"],
+		correct: 1
+}, {
+		question: "Who was the fastest podracer in the history of the Republic?",	
+		choice: ["A: Anakin Skywalker", "B: Star Killer", "C: Sebulba", "D: Rey Solo/Skywalker"],
+		images: ["<img src\"assets/images/anakin.gif\">"],
+		correct: 0
+}, {
+		question: "Which Sith was successful in his attempt to overthrow the capital city of the Galactic Republic, Coruscant?",	
+		choice: ["A: Darth Bane", "B: Darth Nihilus", "C: Darth Malgus", "D: Darth Malak"],
+		images: ["<img src\"assets/images/malgus.gif\">"],
+		correct: 2
+}, {
+		question: "In the attempted arrest of Darth Sidious, how many Jedi were felled before his duel with Mace Windu?",	
+		choice: ["A: 1", "B: 2", "C: 3", "D: 10"],
+		images: ["<img src\"assets/images/sheev.gif\">"],
+		correct: 2
+}, {
+		question: "What is widely considered the reason Anakin Skywalker was seduced by the Dark Side?",	
+		choice: ["A: He was just emo", "B: He had to save Padme", "C: Anakin's hatred of sand", "D: He was jealous of Obi-Wan's beard"],
+		images: ["<img src\"assets/images/turnt.gif\">"],
+		correct: 1
+}, {
+		question: "What powers a lightsaber?",	
+		choice: ["A: The Force", "B: The Senate", "C: Anakin hated sand", "D: Kyber Crystals"],
+		images: ["<img src\"assets/images/kyber.gif\">"],
+		correct: 3
+}]
 
-var gameAnswers = [["A: Assaj Ventress ",
-					" B: Darth Vader",
-					" C: Lando Calrissian",
-					" D: Obi-Wan Kenobi"], 
-				   ["A: General Akbar",
-				   	" B: Count Duku",
-				   	" C: Darth Maul",
-				   	" D: Jacen"], 
-				   ["A: Its a trap!",
-				    " B: The war is lost, go home.",
-				    " C: Anakin is pissed.",
-				    " D: I am General Akbar."], 
-				   ["A: Darth Bane",
-				    " B: Star Killer",
-				    " C: Darth Revan",
-				    " D: Darth Malgus"]];
-
-var correctAnswers = ["B: Darth Vader", "D: Jacen", "A: Its a trap!", "A: Darth Bane"];
+var right = 0;
+var wrong = 0;
+var time = 31;
+var timeID;
 var current = 0;
-var questionCounter = 0;
-var selectAnswer = 0;
-var correctTally = 0;
-var incorrectTally = 0;
-var unansweredTally = 0;
+var currentObj = [];
+var txt;
+var amSmart = false;
+
 
 //jQuery ready
 $(document).ready(function(){
@@ -36,103 +67,114 @@ $(document).ready(function(){
 	//Click start button to begin game
 	$("#startButton").click(function(){
 		$("#startButton").hide();
-
-		//Asking the first question
-		function askQuestion(){
-			var $question = $("<h4>" + questions[current] + "</h4>");
-			if (questions[current]){
-				$("#questions").html($question);
-				$("#answers").html(gameAnswers[0]);
-				var choicesArr = [questions][gameAnswers];
-				var buttonsArr = [];			
-				
-				for (var i = 0; i < choicesArr; i++) {
-					var button = $('<button>');
-					button.text(choicesArr);
-					button.attr('data-id', i);
-					button.attr('class', 'hvr-radial-out');
-					$("#answers").append(button);
-				};
-			}
-		};
-		askQuestion();
-		console.log(askQuestion);
-
-		//timer function & run out of time
-		var time = 30;
-		var timer = setInterval(function(){
-			time--;
-			var $time = $("<h4>Time Remaining: " + time + "</h4>")
-			$("#timer").html($time);	
-			if (time <= 0){
-				clearInterval(timer);
-				/*if answer is correct then congratulations, 
-				add tally to correct count, run nextQuestion() */
-				if (selectAnswer === "B: Darth Vader" || selectAnswer === "D: Jacen"|| selectAnswer === "A: Its a trap!" || selectAnswer === "A: Darth Bane"){
-					$("#answers").html('Congratulations! That is the correct answer!');
-					correctTally++;
-					setTimeOut(function(){
-						nextQuestion();
-					});
-				} 
-
- 				/*if answer is correct then sorry, 
-				add tally to incorrect count, run nextQuestion()*/
-				else {
-					$("#answers").html('Incorrect, young apprentice.');
-					incorrectTally++;
-					setTimeOut(function(){
-						nextQuestion();
-					});
-				};
-			}
-		}, 1000);
-		console.log(time);
-	
+		timer();
+		timeID = setInterval(timer,1000);
+		makeGame();
 	});
+
+	//Run the timer function
+	function timer(){
+		if (time !== 0){
+			time--;
+			var $t = $("<h3>Time Remaining: " + time + "</h3>");
+			$("#timer").html($t);
+		} 
+	};
+
+	//Make the game parameters
+	function makeGame(){
+		$("#questions").empty();
+		var q = $("<h3>"+ "<br>");
+			currentObj = questions[current];
+		q.text(currentObj.question);
+
+		var divQuestion = $('<div>').attr('id','Question');
+		$("#questions").append(divQuestion)
+		$("#Question").append(q);
+
+		var divAnswer = $('<div>').attr('id', 'A');
+		$("#questions").append(divAnswer);
+
+		for (var i = 0; i < currentObj.choice.length; i++) {
+			var choices = $('<p>');
+			choices.text(currentObj.choice[i]);
+			$("#A").append(choices);
+		};
+
+		$('#A p').on("click", function(){
+			if($(this).text() === currentObj.choice[currentObj.correct]){
+				console.log('Good job, youngling');
+				amSmart = true;
+				setTimeout(nextQuestion, 3000);
+				console.log(setTimeout);
+			} else {
+				txt = currentObj.choice[currentObj.correct];
+				amSmart = false;
+				setTimeout(nextQuestion, 3000);
+				console.log(setTimeout);
+			};
+		});
+	};
+
+	//Next question
+	function nextQuestion(){
+		if (time = 0){
+			wrong++
+			$("#questions").html("<h3>Incorrect, young apprentice. The answer was " + txt + "</h3>");
+		}
+		if (amSmart){
+			$("#questions").empty();
+			right++;
+			$("#questions").html("<h3>Congratulations! That is the correct answer!</h3>")
+			//insert img refer to line 137-138
+
+		} else {
+			$("#questions").empty();
+			wrong++;
+			$("#questions").html("<h3>Incorrect, young apprentice. The answer was " + txt + "</h3>");
+			//insert img refer to line 144-145
+
+		};
+
+		if (current !== 9){
+			current++;
+			setTimeout(makeGame, 2000);
+			time = 32;
+		} else {
+			gameEnd();
+		}
+	};
+
+	//GameEnd
+	function gameEnd(){
+		$("#questions").empty();
+		$("#timer").empty();
+		clearInterval(timeID);
+
+		$("#questions").append('<h3>Much have you to learn, young one</h3>');
+		$("#questions").append('<h3>Correct: ' + right + 
+						'<br><br> Incorrect: ' + wrong + ' </h3>'); 
+			//insert img/gif refer to line 164-165	
+
+		var $newStartButton = $('<button>').attr('id', 'restart').text("Try Again");
+		$("#timer").prepend($newStartButton);
+
+		//GameEnd button
+		$('#restart').on("click", function(){
+			$('#restart').hide();
+			restart();
+		})
+	}
+
+	//Restart game function
+	function restart(){
+		right = 0;
+		wrong = 0;
+		time = 30;
+		current = 0;
+		timer();
+		timeID = setInterval(timer, 1000);
+		makeGame();
+	}
+
 });
-
-
-
-
-//Old Thoughts that didn't quite work out :)
-/* var q1 = {
-	question: "Who was Luke's Father?",
-	answers: [
-			'a: Darth Vader', 
-			'b: Darth Plagueis',
-			'c: The Force',
-			'd: General Akbar'],
-	correctAnswer: 'a: Darth Vader',
-};
-
-var q2 = {
-	question: "Han Solo & Leia Skywalker/Organa/Solo had a son. What was his name?",
-	answers: [
-			'a: Kylo Ren',
-			'b: Sheev Paplatine',
-			'c: Jacen Solo',
-			'd: General Akbar'],
-	correctAnswer2: 'c: Jacen Solo',
-};
-			
-var q3 = {
-	question: "General Akbar exclaimed which of these?",
-	answers: [
-			'a: Run for your lives!', 
-			'b: Its a trap!', 
-			'c: Sucks to suck, huh?',
-			'd: You cant sit with us.'],
-	correctAnswer: 'b: Its a trap!',
-};
-		
-var q4 = {
-	question4: "Who was the Rule of Two created by?",
-	answers4: [
-			'a: Darth Bane', 
-			'b: Anakin Skywalker', 
-			'c: Emperor Palpatine',
-			'd: Darth Jar-Jar'],
-	correctAnswer4: 'a: Darth Bane',
-};
-*/
