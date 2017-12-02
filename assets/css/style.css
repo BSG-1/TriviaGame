@@ -1,14 +1,16 @@
 body {
-	background-image: 
+	background-color: black;
+	background-url
 }
 
 .container {
 	background-color: red;
 }
 
-.jumbotron {
+h2 {
 	font-family: 'Spectral SC', serif;
-	font-size: 40px;
+	font-size: 60px;
+	font-weight: bold;
 }
 
 #timer {
@@ -25,10 +27,16 @@ body {
 	font-size: 20px;
 }
 
-p {
+
+
+#A {
+	page-break-after: always;
 	font-family: 'Spectral SC', serif;
 	font-size: 20px;
+}
 
+.button {
+	display: block;
 }
 
 h3 {
